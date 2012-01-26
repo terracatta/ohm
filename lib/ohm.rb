@@ -469,6 +469,17 @@ module Ohm
       def each(&block)
         key.smembers.each { |id| block.call(model.to_proc[id]) }
       end
+      
+      #
+      # Builder method to work with accepts_nested_params in active record
+      #
+      def build(params=nil)
+        if params
+          "#{model}.new(#{params})"
+        else
+          "#{model}.new"
+        end
+      end
 
       # Convenient way to scope access to a predefined set, useful for access
       # control.
